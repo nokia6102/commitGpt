@@ -1,0 +1,10 @@
+# 忽略環境變數檔案
+.env
+
+# macOS 產生的系統檔案
+.DS_Store
+
+# 編譯過的 Swift 執行檔
+commit
+commit.dSYM/
+
