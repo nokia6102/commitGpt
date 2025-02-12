@@ -65,14 +65,14 @@ def generate_commit_message(diff_text):
     payload = {
         "model": "gpt-4o-mini",  # 使用 GPT-4 模型
         "messages": [
-            {"role": "system", "content": "你是一個優秀的開發者，負責撰寫簡潔又描述清楚的 Git commit 訊息。"},
-            {"role": "user", "content": f"根據以下的 git 差異生成一個有意義的 commit 英文動詞開頭加繁體中文訊息，請包含兩個部分：\n1. 範例: [New|Update|Remove|Refactor|Fix|Misc]（不超過80字）\n\n Description:（條列描述變更內容）：\n{diff_text}"}
+            {"role": "system", "content": "你是一個優秀的開發者，負責撰寫簡潔又描述清楚的 Git commit 訊息, 和建議並檢查變數命名是否有swift規範(小駝峰命名法:第1個字為小寫駝峰)。"},
+            {"role": "user", "content": f"根據以下的 git 差異生成一個有意義的 commit 英文動詞開頭加繁體中文訊息和建議，請包含3部分：\n 範例: [New|Update|Remove|Refactor|Fix|Misc]（不超過80字）\n\n Description:（條列描述變更內容）：\n{diff_text}\n\n Suggest :\n [o/x 駝峰檢查], 檔案:L行 ==> 變數"}
         ]
     }
 
     try:
         response = requests.post(API_URL, json=payload, headers=headers)
-        response.raise_for_status()  # 如果發生 HTTP 錯誤會丟出異常
+        response.raise_for_status()  # 如果發生 HTTP 錯誤會丟出異常:
         data = response.json()
 
         commit_message = data.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
