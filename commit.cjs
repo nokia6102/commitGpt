@@ -1,3 +1,11 @@
+/*
+(MacOS)
+brew install node
+node -v
+npm install axios
+npm install dotenv
+ */
+
 const axios = require('axios');
 const { execSync } = require("child_process");
 require('dotenv').config();
@@ -42,11 +50,11 @@ async function generateCommitMessage(diff) {
       messages: [
         {
           role: "system",
-          content: "你是一個優秀的開發者，負責撰寫簡潔又描述清楚的 Git commit 訊息。",
+          content: "你是一個優秀的開發者，負責撰寫簡潔又描述清楚的 Git commit 訊息, 和建議並檢查變數命名是否有swift規範(小駝峰命名法:第1個字為小寫駝峰)。",
         },
         {
           role: "user",
-          content: `根據以下的 git 差異生成一個有意義的 commit 英文動詞開頭加繁體中文訊息，請包含兩個部分：\n1. 範例: [New|Update|Remove|Refactor|Fix|Misc]（不超過80字）\n\n Description:（條列描述變更內容）：\n${diff}`,
+          content: `根據以下的 git 差異生成一個有意義的 commit 英文動詞開頭加繁體中文訊息和建議，請包含3部分：\n 範例: [New|Update|Remove|Refactor|Fix|Misc]（不超過80字）\n\n Description:（條列描述變更內容）：\n${diff}\n\n Suggest :\n [⚠️) 駝峰檢查], 檔案:L行 ==> 變數`,
         },
       ],
     }, {
